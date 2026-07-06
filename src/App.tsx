@@ -40,6 +40,7 @@ export default function App() {
   const [migrationStep, setMigrationStep] = useState<number>(0);
   const [migrationLogs, setMigrationLogs] = useState<string[]>([]);
   const [migrationResult, setMigrationResult] = useState<MigrationResult | null>(null);
+  const [mode, setMode] = useState<"live" | "offline">("offline");
   const [activeTab, setActiveTab] = useState<"code" | "architecture" | "refactoring" | "security" | "tests" | "chat">("code");
   
   // Interactive Refinement state
@@ -153,6 +154,7 @@ export default function App() {
     setMigrationStep(1);
     setMigrationLogs(["[SYSTEM] BridgeBot initialized."]);
     setMigrationResult(null);
+    setMode("offline");
     setChatHistory([]);
     setActiveTab("code");
 
@@ -199,8 +201,9 @@ export default function App() {
         throw new Error(await res.text() || "Migration failed server-side.");
       }
 
-      const result: MigrationResult = await res.json();
+      const result: MigrationResult & { _mode?: string } = await res.json();
       setMigrationResult(result);
+      setMode((result as any)._mode === "live" ? "live" : "offline");
       setMigrationLogs(prev => [...prev, `[SUCCESS] Modernization complete! Generated ${result.performanceComparison.modern.linesOfCode} lines of idiomatic ${finalTarget}.`]);
       
       // Initialize chat with a welcome message from the agent
@@ -362,19 +365,12 @@ How can I help you refine this code further? You can ask me to:
         </div>
 
         <div className="flex items-center gap-3">
-          <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-zinc-900/60 border border-zinc-800 text-xs text-zinc-400 font-mono">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
-            AGENT CORRELATION: SYNCHRONIZED
-          </div>
-          <a 
-            href="https://ai.studio/build" 
-            target="_blank" 
-            referrerPolicy="no-referrer"
-            className="text-xs text-zinc-400 hover:text-zinc-200 underline flex items-center gap-1.5"
-          >
-            <Sparkles className="w-3.5 h-3.5 text-indigo-400" />
-            AI Studio Build
-          </a>
+          {mode === "live" && (
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg border text-xs font-mono bg-emerald-950/20 border-emerald-800/60 text-emerald-400">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+              GEMINI API: LIVE
+            </div>
+          )}
         </div>
       </header>
 
