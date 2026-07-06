@@ -2,7 +2,7 @@ import express from "express";
 import http from "http";
 import path from "path";
 import { createServer as createViteServer } from "vite";
-import { GoogleGenAI, Type } from "@google/genai";
+import { GoogleGenAI } from "@google/genai";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -13,7 +13,7 @@ const PORT = 3000;
 app.use(express.json({ limit: "10mb" }));
 
 const apiKey = process.env.GEMINI_API_KEY || "";
-const hasValidKey = apiKey.startsWith("AIza") && apiKey.length > 20;
+const hasValidKey = apiKey.length > 20 && !apiKey.includes("...") && !apiKey.includes("YOUR_");
 console.log("MODE:", hasValidKey ? "LIVE (Gemini API)" : "FALLBACK (offline engine)");
 
 let ai: GoogleGenAI | null = null;
@@ -394,11 +394,12 @@ app.post("/api/migrate", async (req, res) => {
   if (ai && hasValidKey) {
     try {
       const optionsStr = options.length > 0 ? "Apply the following additional optimization parameters: " + options.join(", ") + "." : "";
+      const userPrompt = "Migrate this " + sourceLang + " code to " + targetLang + ":\n\n"
+        + sourceCode + "\n\n" + optionsStr
+        + "\n\nReturn valid JSON matching: { modernCode, architecturalSummary: { legacyParadoxesResolved, targetStackFeatures }, refactoringDetails: { nestedLoopsSimplified, deadCodeRemoved, cleanArchitectureApplied }, securityAudit: { vulnerabilitiesFound: [{ issue, severity, description, resolution }] }, unitTests, performanceComparison: { legacy: { memory, cpuEfficiency, linesOfCode }, modern: { memory, cpuEfficiency, linesOfCode } } }";
       const response = await ai.models.generateContent({
         model: "gemini-2.0-flash-lite",
-        contents: [
-          { role: "user", parts: [{ text: "Migrate this " + sourceLang + " code to " + targetLang + ":\n\n" + sourceCode + "\n\n" + optionsStr + "\n\nReturn valid JSON matching: { modernCode, architecturalSummary: { legacyParadoxesResolved, targetStackFeatures }, refactoringDetails: { nestedLoopsSimplified, deadCodeRemoved, cleanArchitectureApplied }, securityAudit: { vulnerabilitiesFound: [{ issue, severity, description, resolution }] }, unitTests, performanceComparison: { legacy: { memory, cpuEfficiency, linesOfCode }, modern: { memory, cpuEfficiency, linesOfCode } } }" }] },
-        ],
+        contents: [{ role: "user", parts: [{ text: userPrompt }] }],
         config: { responseMimeType: "application/json" }
       });
       const text = response.text;
@@ -423,11 +424,10 @@ app.post("/api/refine", async (req, res) => {
 
   if (ai && hasValidKey) {
     try {
+      const refinePrompt = "Refine this code based on: " + message + "\n\n```\n" + modernCode + "\n```\n\nReturn JSON: { explanation, refinedCode }";
       const response = await ai.models.generateContent({
         model: "gemini-2.0-flash-lite",
-        contents: [
-          { role: "user", parts: [{ text: "Refine this code based on: " + message + "\n\n```\n" + modernCode + "\n```\n\nReturn JSON: { explanation, refinedCode }" }] },
-        ],
+        contents: [{ role: "user", parts: [{ text: refinePrompt }] }],
         config: { responseMimeType: "application/json" }
       });
       const text = response.text;
