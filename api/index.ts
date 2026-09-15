@@ -179,75 +179,115 @@ function generateTsCode(sourceLang: string, options: string[]) {
   ].join("\n");
 }
 
+function normalizeTarget(targetLang: string): string {
+  const t = targetLang.toLowerCase();
+  if (t.startsWith("go")) return "Go";
+  if (t.includes("python")) return "Python 3.12";
+  if (t.includes("rust")) return "Rust";
+  if (t.includes("typescript") || t === "ts" || t.startsWith("ts")) return "TypeScript";
+  if (t.includes("c++") || t.includes("cpp") || t.includes("objective-c")) return "Modern C++23";
+  if (t.includes("java")) return "Java 21";
+  if (t.includes("c#") || t.includes("#") || t.includes(".net")) return "C# (.NET 9)";
+  if (t.includes("elixir")) return "Elixir / Phoenix";
+  if (t.includes("react") || t.includes("vue") || t.includes("svelte") || t.includes("solid") || t.includes("next") || t.includes("nuxt") || t.includes("astro")) return "Frontend Framework";
+  if (t.includes("flutter") || t.includes("native") || t.includes("swift") || t.includes("kotlin")) return "Mobile Framework";
+  return targetLang;
+}
+
+function generateTemplateCode(targetLang: string, sourceLang: string) {
+  return [
+    "// BridgeBot :: Modernized " + sourceLang + " → " + targetLang,
+    "// Generated: " + new Date().toISOString().split("T")[0],
+    "// Note: No GEMINI_API_KEY detected, so running in OFFLINE ENGINE mode.",
+    "// The full AI-driven transformation is enabled by setting GEMINI_API_KEY,",
+    "// which produces production-grade idiomatic " + targetLang + " code.",
+    "",
+    "// Offline template for " + targetLang + ". Paste representative output here,",
+    "// or configure a GEMINI_API_KEY and re-run the migration pipeline.",
+    "",
+    "// TODO: implement " + targetLang + " module",
+  ].join("\n");
+}
+
 function generateModernCode(targetLang: string, sourceLang: string, options: string[]) {
-  if (targetLang === "Go") return generateGoCode(sourceLang, options);
-  if (targetLang === "Python 3.12") return generatePythonCode(sourceLang, options);
-  if (targetLang === "Rust") return generateRustCode(sourceLang, options);
-  return generateTsCode(sourceLang, options);
+  switch (normalizeTarget(targetLang)) {
+    case "Go": return generateGoCode(sourceLang, options);
+    case "Python 3.12": return generatePythonCode(sourceLang, options);
+    case "Rust": return generateRustCode(sourceLang, options);
+    case "TypeScript": return generateTsCode(sourceLang, options);
+    default: return generateTemplateCode(targetLang, sourceLang);
+  }
 }
 
 function generateUnitTests(targetLang: string) {
-  if (targetLang === "Go") {
-    return [
-      'package main',
-      '',
-      'import "testing"',
-      '',
-      'func TestCustomerProcessor(t *testing.T) {',
-      '\tcp := NewCustomerProcessor()',
-      '\trecords := []CustomerRecord{',
-      '\t\t{ID: "001", Name: "Test", Balance: 100.0, Active: true},',
-      '\t}',
-      '\tcp.Process(records)',
-      '\tcp.Summary()',
-      '}',
-    ].join("\n");
+  switch (normalizeTarget(targetLang)) {
+    case "Go":
+      return [
+        'package main',
+        '',
+        'import "testing"',
+        '',
+        'func TestCustomerProcessor(t *testing.T) {',
+        '\tcp := NewCustomerProcessor()',
+        '\trecords := []CustomerRecord{',
+        '\t\t{ID: "001", Name: "Test", Balance: 100.0, Active: true},',
+        '\t}',
+        '\tcp.Process(records)',
+        '\tcp.Summary()',
+        '}',
+      ].join("\n");
+    case "Python 3.12":
+      return [
+        "import pytest",
+        "from your_module import CustomerProcessor, CustomerRecord",
+        "",
+        "def test_customer_processor():",
+        "    cp = CustomerProcessor()",
+        '    records = [CustomerRecord("001", "Test", 100.0, True)]',
+        "    cp.process_sync(records)",
+        "    assert cp.total_balance == 100.0",
+        "    assert cp.active_count == 1",
+      ].join("\n");
+    case "Rust":
+      return [
+        "#[cfg(test)]",
+        "mod tests {",
+        "    use super::*;",
+        "",
+        "    #[test]",
+        "    fn test_customer_processor() {",
+        "        let cp = CustomerProcessor::new();",
+        "        let records = vec![CustomerRecord {",
+        '            id: "001".into(),',
+        '            name: "Test".into(),',
+        "            balance: 100.0,",
+        "            is_active: true,",
+        "        }];",
+        "        cp.process(&records);",
+        "        cp.summary();",
+        "    }",
+        "}",
+      ].join("\n");
+    case "TypeScript":
+      return [
+        "import { CustomerProcessor } from './main';",
+        "",
+        "describe('CustomerProcessor', () => {",
+        "  it('should process records correctly', () => {",
+        "    const cp = new CustomerProcessor();",
+        "    cp.process([{ id: '001', name: 'Test', balance: 100, isActive: true }]);",
+        "    cp.summary();",
+        "  });",
+        "});",
+      ].join("\n");
+    default:
+      return [
+        "// BridgeBot unit test template for " + targetLang,
+        "// Configure GEMINI_API_KEY to have tests auto-generated for this target stack.",
+        "",
+        "// TODO: add unit tests for the migrated " + targetLang + " module",
+      ].join("\n");
   }
-  if (targetLang === "Python 3.12") {
-    return [
-      "import pytest",
-      "from your_module import CustomerProcessor, CustomerRecord",
-      "",
-      "def test_customer_processor():",
-      "    cp = CustomerProcessor()",
-      '    records = [CustomerRecord("001", "Test", 100.0, True)]',
-      "    cp.process_sync(records)",
-      "    assert cp.total_balance == 100.0",
-      "    assert cp.active_count == 1",
-    ].join("\n");
-  }
-  if (targetLang === "Rust") {
-    return [
-      "#[cfg(test)]",
-      "mod tests {",
-      "    use super::*;",
-      "",
-      "    #[test]",
-      "    fn test_customer_processor() {",
-      "        let cp = CustomerProcessor::new();",
-      "        let records = vec![CustomerRecord {",
-      '            id: "001".into(),',
-      '            name: "Test".into(),',
-      "            balance: 100.0,",
-      "            is_active: true,",
-      "        }];",
-      "        cp.process(&records);",
-      "        cp.summary();",
-      "    }",
-      "}",
-    ].join("\n");
-  }
-  return [
-    "import { CustomerProcessor } from './main';",
-    "",
-    "describe('CustomerProcessor', () => {",
-    "  it('should process records correctly', () => {",
-    "    const cp = new CustomerProcessor();",
-    "    cp.process([{ id: '001', name: 'Test', balance: 100, isActive: true }]);",
-    "    cp.summary();",
-    "  });",
-    "});",
-  ].join("\n");
 }
 
 function generateFallbackMigration(sourceCode: string, sourceLang: string, targetLang: string, options: string[]) {

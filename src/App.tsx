@@ -26,6 +26,24 @@ import { motion, AnimatePresence } from "motion/react";
 import { LEGACY_EXAMPLES } from "./examples";
 import { MigrationResult, SecurityVulnerability } from "./types";
 
+function getFileExtension(targetLang: string): string {
+  const t = targetLang.toLowerCase();
+  if (t.startsWith("go")) return "go";
+  if (t.includes("python")) return "py";
+  if (t.includes("typescript") || t === "ts" || t.startsWith("ts")) return "ts";
+  if (t.includes("rust")) return "rs";
+  if (t.includes("c++") || t.includes("cpp") || t.includes("objective-c")) return "cpp";
+  if (t.includes("java")) return "java";
+  if (t.includes("c#") || t.includes(".net")) return "cs";
+  if (t.includes("elixir")) return "ex";
+  if (t.includes("vue")) return "vue";
+  if (t.includes("svelte")) return "svelte";
+  if (t.includes("swift")) return "swift";
+  if (t.includes("flutter") || t.includes("dart")) return "dart";
+  if (t.includes("kotlin")) return "kt";
+  return "txt";
+}
+
 export default function App() {
   // Application State
   const [sourceCode, setSourceCode] = useState(LEGACY_EXAMPLES[0].code);
@@ -316,14 +334,7 @@ How can I help you refine this code further? You can ask me to:
   // Download migrated code as a file
   const handleDownloadCode = () => {
     if (!migrationResult) return;
-    const extMap: Record<string, string> = {
-      "Go": "go",
-      "Python 3.12": "py",
-      "TypeScript": "ts",
-      "Rust": "rs",
-      "Modern C++20": "cpp"
-    };
-    const ext = extMap[targetLang] || "txt";
+    const ext = getFileExtension(targetLang);
     const blob = new Blob([migrationResult.modernCode], { type: "text/plain;charset=utf-8" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
@@ -365,10 +376,15 @@ How can I help you refine this code further? You can ask me to:
         </div>
 
         <div className="flex items-center gap-3">
-          {mode === "live" && (
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg border text-xs font-mono bg-emerald-950/20 border-emerald-800/60 text-emerald-400">
+          {mode === "live" ? (
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg border text-xs font-mono bg-emerald-950/20 border-emerald-800/60 text-emerald-400" title="Gemini API connected – AI-driven transformation active">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
               GEMINI API: LIVE
+            </div>
+          ) : migrationResult && (
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg border text-xs font-mono bg-amber-950/20 border-amber-800/60 text-amber-400" title="No GEMINI_API_KEY configured – using the deterministic offline engine. Set one for full AI-driven results">
+              <span className="w-2 h-2 rounded-full bg-amber-500"></span>
+              OFFLINE ENGINE
             </div>
           )}
         </div>
@@ -799,7 +815,7 @@ How can I help you refine this code further? You can ask me to:
                       <div className="flex items-center justify-between text-xs text-zinc-400">
                         <span className="font-mono text-[11px] text-zinc-500 flex items-center gap-1">
                           <FileCode className="w-3.5 h-3.5 text-indigo-400" />
-                          main.{targetLang === "Go" ? "go" : targetLang === "Python 3.12" ? "py" : targetLang === "Rust" ? "rs" : "ts"}
+                          main.{getFileExtension(targetLang)}
                         </span>
                         
                         <div className="flex items-center gap-2">
@@ -836,9 +852,15 @@ How can I help you refine this code further? You can ask me to:
                           ))}
                         </div>
                         <pre className="flex-1 p-3 overflow-y-auto text-zinc-200 h-full select-text whitespace-pre-wrap font-mono">
-                          <code>{migrationResult ? migrationResult.modernCode : `// Modernized target code will be shown here.
-// Select a legacy configuration on the left or paste your code snippet,
-// then click 'Run Modernization Pipeline' to generate optimized, production-grade target code.`}</code>
+                          <code>{migrationResult ? migrationResult.modernCode : `// BridgeBot is ready to modernize your codebase.
+// Target: ${targetLang === "Custom" ? (customTargetLang.trim() || "Your custom stack") : targetLang}
+//
+// 1. Pick a legacy example on the left, or paste / drop a legacy file
+// 2. Choose source → target stacks and optimizer passes
+// 3. Click "Run Modernization Pipeline"
+//
+// The engine will use the Gemini API when a GEMINI_API_KEY is set,
+// and gracefully falls back to the deterministic offline engine otherwise.`}</code>
                         </pre>
                       </div>
                     </div>
@@ -934,7 +956,7 @@ How can I help you refine this code further? You can ask me to:
                         <Sparkles className="w-4 h-4 text-emerald-400" /> TARGET STACK FEATURES UTILIZED
                       </h4>
                       <p className="text-xs text-zinc-400 mb-2 leading-relaxed">
-                        These structural features native to modern **{targetLang}** were successfully integrated to enforce safety, modularity, and lightweight execution:
+                        These structural features native to modern {targetLang} were successfully integrated to enforce safety, modularity, and lightweight execution:
                       </p>
                       <ul className="flex flex-col gap-2.5">
                         {migrationResult.architecturalSummary.targetStackFeatures.map((f, i) => (
@@ -1032,7 +1054,7 @@ How can I help you refine this code further? You can ask me to:
                   <div className="flex flex-col gap-3 max-w-3xl">
                     <div className="flex items-center justify-between text-xs text-zinc-400">
                       <span className="font-mono text-[11px] text-zinc-500">
-                        test_suite.{targetLang === "Go" ? "go" : targetLang === "Python 3.12" ? "py" : targetLang === "Rust" ? "rs" : "ts"}
+                        test_suite.{getFileExtension(targetLang)}
                       </span>
                       <button
                         onClick={() => handleCopy(migrationResult.unitTests, "tests")}
