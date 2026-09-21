@@ -357,15 +357,15 @@ How can I help you refine this code further? You can ask me to:
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col font-sans selection:bg-indigo-500/30 selection:text-indigo-200" id="main-container">
       {/* Top Banner & Header */}
-      <header className="border-b border-zinc-800/80 bg-zinc-900/40 backdrop-blur-md px-6 py-4 flex flex-wrap items-center justify-between gap-4 sticky top-0 z-50">
+      <header className="border-b border-zinc-800/80 bg-white/90 px-6 py-4 flex flex-wrap items-center justify-between gap-4 sticky top-0 z-50">
         <div className="flex items-center gap-3">
-          <div className="p-2.5 bg-gradient-to-br from-indigo-500 to-cyan-500 rounded-xl text-white shadow-lg shadow-indigo-500/10 border border-indigo-400/20">
-            <Cpu className="w-6 h-6 animate-pulse" />
+          <div className="p-2.5 bg-indigo-600 rounded-xl text-white">
+            <Cpu className="w-6 h-6" />
           </div>
           <div>
-            <h1 className="text-xl font-bold tracking-tight bg-gradient-to-r from-zinc-100 via-zinc-200 to-zinc-400 bg-clip-text text-transparent flex items-center gap-2">
+            <h1 className="text-xl font-bold tracking-tight text-zinc-100 flex items-center gap-2">
               BridgeBot
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-zinc-800/60 text-indigo-400 border border-zinc-700/60 uppercase tracking-widest">
+              <span className="text-[10px] font-semibold px-2.5 py-1 rounded-full bg-indigo-100 text-indigo-700 border border-indigo-200">
                 Zero Downtime
               </span>
             </h1>
@@ -377,14 +377,14 @@ How can I help you refine this code further? You can ask me to:
 
         <div className="flex items-center gap-3">
           {mode === "live" ? (
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg border text-xs font-mono bg-emerald-950/20 border-emerald-800/60 text-emerald-400" title="Gemini API connected – AI-driven transformation active">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
-              GEMINI API: LIVE
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border text-xs bg-emerald-100 border-emerald-600/40 text-emerald-700" title="Gemini API connected – AI-driven transformation active">
+              <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+              Gemini API: Live
             </div>
           ) : migrationResult && (
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg border text-xs font-mono bg-amber-950/20 border-amber-800/60 text-amber-400" title="No GEMINI_API_KEY configured – using the deterministic offline engine. Set one for full AI-driven results">
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border text-xs bg-amber-100 border-amber-600/40 text-amber-700" title="No GEMINI_API_KEY configured – using the deterministic offline engine. Set one for full AI-driven results">
               <span className="w-2 h-2 rounded-full bg-amber-500"></span>
-              OFFLINE ENGINE
+              Offline engine
             </div>
           )}
         </div>
@@ -399,7 +399,7 @@ How can I help you refine this code further? You can ask me to:
           <div className="flex items-center justify-between border-b border-zinc-800/60 pb-3">
             <div className="flex items-center gap-2">
               <Layers className="w-4 h-4 text-indigo-400" />
-              <h2 className="text-sm font-semibold tracking-wide uppercase text-zinc-300">
+              <h2 className="text-sm font-semibold text-zinc-300">
                 1. Code Extraction & Config
               </h2>
             </div>
@@ -436,7 +436,7 @@ How can I help you refine this code further? You can ask me to:
 
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-[10px] text-zinc-400 uppercase font-mono tracking-wider mb-1.5">
+                <label className="block text-[10px] text-zinc-400 font-medium mb-1.5">
                   Legacy Source Stack
                 </label>
                 <select
@@ -483,7 +483,7 @@ How can I help you refine this code further? You can ask me to:
               </div>
 
               <div>
-                <label className="block text-[10px] text-zinc-400 uppercase font-mono tracking-wider mb-1.5">
+                <label className="block text-[10px] text-zinc-400 font-medium mb-1.5">
                   Modern Target Stack
                 </label>
                 <select
@@ -534,7 +534,7 @@ How can I help you refine this code further? You can ask me to:
 
             {/* Optimization Flags */}
             <div>
-              <label className="block text-[10px] text-zinc-400 uppercase font-mono tracking-wider mb-2">
+              <label className="block text-[10px] text-zinc-400 font-medium mb-2">
                 Compiler & Optimizer Passes
               </label>
               <div className="flex flex-col gap-2">
@@ -573,7 +573,7 @@ How can I help you refine this code further? You can ask me to:
                 onClick={() => setSourceCode("")}
                 className="text-[10px] text-zinc-500 hover:text-zinc-300 transition-colors font-mono"
               >
-                Clear Screen
+                Clear screen
               </button>
             </div>
 
@@ -605,8 +605,8 @@ How can I help you refine this code further? You can ask me to:
 
               {/* Upload Drop overlay */}
               {dragActive && (
-                <div className="absolute inset-0 bg-zinc-950/90 backdrop-blur-sm flex flex-col items-center justify-center gap-3 border-2 border-dashed border-indigo-500/60 rounded-2xl">
-                  <Upload className="w-8 h-8 text-indigo-400 animate-bounce" />
+                <div className="absolute inset-0 bg-zinc-950/90 flex flex-col items-center justify-center gap-3 border-2 border-dashed border-indigo-500/60 rounded-2xl">
+                  <Upload className="w-8 h-8 text-indigo-400" />
                   <p className="text-xs text-zinc-300 font-medium">Drop your legacy file here to extract</p>
                 </div>
               )}
@@ -619,7 +619,7 @@ How can I help you refine this code further? You can ask me to:
                   onClick={() => fileInputRef.current?.click()}
                   className="hover:text-zinc-100 flex items-center gap-1.5 transition-colors font-mono text-[10px]"
                 >
-                  <Upload className="w-3.5 h-3.5" /> UPLOAD FILE
+                  <Upload className="w-3.5 h-3.5" /> Upload file
                 </button>
                 <input
                   type="file"
@@ -646,12 +646,12 @@ How can I help you refine this code further? You can ask me to:
             {isMigrating ? (
               <>
                 <RefreshCw className="w-5 h-5 animate-spin" />
-                <span>REFACTORING LEGACY FLOWS...</span>
+                <span>Refactoring legacy flows...</span>
               </>
             ) : (
               <>
                 <Play className="w-5 h-5" />
-                <span>RUN MODERNIZATION PIPELINE</span>
+                <span>Run modernization pipeline</span>
               </>
             )}
           </button>
@@ -667,13 +667,13 @@ How can I help you refine this code further? You can ask me to:
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="absolute inset-0 bg-zinc-950/95 backdrop-blur-md z-40 p-6 flex flex-col justify-between"
+                className="absolute inset-0 bg-zinc-950/95 z-40 p-6 flex flex-col justify-between"
               >
                 <div className="flex flex-col gap-6">
                   {/* Title */}
                   <div className="flex items-center gap-2 pb-3 border-b border-zinc-800/60">
                     <Terminal className="w-5 h-5 text-indigo-400" />
-                    <h3 className="font-mono text-sm uppercase tracking-widest text-indigo-400 font-bold">
+                    <h3 className="text-sm font-bold text-indigo-600">
                       Migration Compilation Logs
                     </h3>
                   </div>
@@ -698,19 +698,19 @@ How can I help you refine this code further? You can ask me to:
                         </div>
                       );
                     })}
-                    <div className="w-2 h-4 bg-zinc-500 animate-pulse inline-block mt-1"></div>
+                    <div className="w-2 h-4 bg-zinc-500 inline-block mt-1"></div>
                   </div>
                 </div>
 
                 {/* Progress Indicators */}
                 <div className="flex flex-col gap-2">
-                  <div className="flex items-center justify-between text-xs text-zinc-400 font-mono">
-                    <span>SEMANTIC TRANSFORMATION PROGRESS</span>
+                  <div className="flex items-center justify-between text-xs text-zinc-400">
+                    <span>Semantic transformation progress</span>
                     <span>{Math.round((migrationStep / 6) * 100)}%</span>
                   </div>
                   <div className="w-full bg-zinc-800 h-2 rounded-full overflow-hidden">
                     <motion.div 
-                      className="bg-gradient-to-r from-indigo-500 to-cyan-400 h-full rounded-full"
+                      className="bg-indigo-600 h-full rounded-full"
                       initial={{ width: "0%" }}
                       animate={{ width: `${(migrationStep / 6) * 100}%` }}
                       transition={{ duration: 0.3 }}
@@ -800,7 +800,7 @@ How can I help you refine this code further? You can ask me to:
                       : "text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900/50"
                   }`}
                 >
-                  Refine with Agent {!migrationResult ? "🔒" : <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-emerald-500 rounded-full border border-zinc-950 animate-pulse"></span>}
+                  Refine with Agent {!migrationResult ? "🔒" : <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-emerald-500 rounded-full border border-zinc-200"></span>}
                 </button>
               </div>
 
@@ -826,11 +826,11 @@ How can I help you refine this code further? You can ask me to:
                           >
                             {copiedCode ? (
                               <>
-                                <Check className="w-3 h-3 text-emerald-400" /> COPIED
+                                <Check className="w-3 h-3 text-emerald-400" /> Copied
                               </>
                             ) : (
                               <>
-                                <Copy className="w-3 h-3" /> COPY CODE
+                                <Copy className="w-3 h-3" /> Copy code
                               </>
                             )}
                           </button>
@@ -839,7 +839,7 @@ How can I help you refine this code further? You can ask me to:
                             onClick={() => migrationResult && handleDownloadCode()}
                             className={`hover:text-zinc-200 flex items-center gap-1 text-[10px] font-mono px-2 py-1 rounded bg-zinc-900 border border-zinc-800 transition ${!migrationResult ? "opacity-40 cursor-not-allowed" : ""}`}
                           >
-                            <Download className="w-3 h-3" /> DOWNLOAD
+                            <Download className="w-3 h-3" /> Download
                           </button>
                         </div>
                       </div>
@@ -868,8 +868,8 @@ How can I help you refine this code further? You can ask me to:
                     {/* Performance comparison side metric blocks */}
                     <div className="lg:col-span-4 flex flex-col gap-4">
                       <div className="p-4 bg-zinc-900/30 rounded-2xl border border-zinc-800/60">
-                        <h4 className="text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-4 font-mono flex items-center gap-1.5">
-                          <Cpu className="w-3.5 h-3.5 text-indigo-400" /> METRIC DELTAS
+                        <h4 className="text-xs font-semibold text-zinc-300 mb-4 flex items-center gap-1.5">
+                          <Cpu className="w-3.5 h-3.5 text-indigo-400" /> Metric deltas
                         </h4>
 
                         {/* Metric lines count */}
@@ -895,17 +895,17 @@ How can I help you refine this code further? You can ask me to:
 
                           {/* Metric 2: Memory Footprint */}
                           <div className="p-3 bg-zinc-900/50 rounded-xl border border-zinc-800/80 mt-2">
-                            <div className="text-[10px] uppercase tracking-wider text-zinc-500 font-mono mb-1">Legacy Memory Overhead</div>
+                            <div className="text-[10px] text-zinc-500 mb-1">Legacy memory overhead</div>
                             <div className="text-xs font-semibold text-zinc-300">{migrationResult ? migrationResult.performanceComparison.legacy.memory : "—"}</div>
-                            <div className="text-[10px] uppercase tracking-wider text-indigo-400 font-mono mt-3 mb-1">Modernized Allocation</div>
+                            <div className="text-[10px] text-indigo-400 mt-3 mb-1">Modernized allocation</div>
                             <div className="text-xs font-semibold text-emerald-400">{migrationResult ? migrationResult.performanceComparison.modern.memory : "—"}</div>
                           </div>
 
                           {/* Metric 3: Concurrency / Efficiency */}
                           <div className="p-3 bg-zinc-900/50 rounded-xl border border-zinc-800/80">
-                            <div className="text-[10px] uppercase tracking-wider text-zinc-500 font-mono mb-1">Legacy CPU Bound state</div>
+                            <div className="text-[10px] text-zinc-500 mb-1">Legacy CPU-bound state</div>
                             <div className="text-xs font-semibold text-zinc-300">{migrationResult ? migrationResult.performanceComparison.legacy.cpuEfficiency : "—"}</div>
-                            <div className="text-[10px] uppercase tracking-wider text-indigo-400 font-mono mt-3 mb-1">Modern Efficiency</div>
+                            <div className="text-[10px] text-indigo-400 mt-3 mb-1">Modern efficiency</div>
                             <div className="text-xs font-semibold text-emerald-400">{migrationResult ? migrationResult.performanceComparison.modern.cpuEfficiency : "—"}</div>
                           </div>
                         </div>
@@ -913,7 +913,7 @@ How can I help you refine this code further? You can ask me to:
 
                       {/* Micro Summary Checklist of features applied */}
                       <div className="p-4 bg-zinc-900/30 rounded-2xl border border-zinc-800/60 flex flex-col gap-2.5">
-                        <div className="text-[10px] uppercase tracking-wider font-mono text-zinc-500 mb-1">MIGRATION ASSURANCE</div>
+                        <div className="text-[10px] text-zinc-500 mb-1">Migration assurance</div>
                         <div className="flex items-center gap-2 text-xs text-zinc-300">
                           <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>
                           Idiomatic style-guide matching
@@ -974,7 +974,7 @@ How can I help you refine this code further? You can ask me to:
                 {activeTab === "refactoring" && (
                   <div className="flex flex-col gap-6 max-w-3xl font-sans">
                     <div className="border border-zinc-800 bg-zinc-900/10 rounded-2xl p-5 flex flex-col gap-4">
-                      <h4 className="text-xs font-mono font-semibold tracking-wider text-indigo-400 uppercase">
+                      <h4 className="text-xs font-semibold text-indigo-600">
                         Streamlining Complex Control Logic
                       </h4>
                       <p className="text-xs text-zinc-300 leading-relaxed">
@@ -983,7 +983,7 @@ How can I help you refine this code further? You can ask me to:
                     </div>
 
                     <div className="border border-zinc-800 bg-zinc-900/10 rounded-2xl p-5 flex flex-col gap-4">
-                      <h4 className="text-xs font-mono font-semibold tracking-wider text-indigo-400 uppercase">
+                      <h4 className="text-xs font-semibold text-indigo-600">
                         Dead Code & Boilerplate Pruning
                       </h4>
                       <p className="text-xs text-zinc-300 leading-relaxed">
@@ -992,7 +992,7 @@ How can I help you refine this code further? You can ask me to:
                     </div>
 
                     <div className="border border-zinc-800 bg-zinc-900/10 rounded-2xl p-5 flex flex-col gap-4">
-                      <h4 className="text-xs font-mono font-semibold tracking-wider text-indigo-400 uppercase">
+                      <h4 className="text-xs font-semibold text-indigo-600">
                         Clean Architecture Ingress
                       </h4>
                       <p className="text-xs text-zinc-300 leading-relaxed">
@@ -1006,8 +1006,8 @@ How can I help you refine this code further? You can ask me to:
                 {activeTab === "security" && (
                   <div className="flex flex-col gap-5 max-w-3xl">
                     <div className="flex items-center justify-between">
-                      <h4 className="text-sm font-semibold text-zinc-200 font-mono flex items-center gap-2">
-                        <ShieldCheck className="w-5 h-5 text-indigo-400 animate-pulse" /> SECURITY COMPLIANCE REPORT
+                      <h4 className="text-sm font-semibold text-zinc-200 flex items-center gap-2">
+                        <ShieldCheck className="w-5 h-5 text-indigo-400" /> Security compliance report
                       </h4>
                       <span className="text-xs text-zinc-400 font-mono">
                         {migrationResult.securityAudit.vulnerabilitiesFound.length} vulnerabilities patched
@@ -1030,16 +1030,16 @@ How can I help you refine this code further? You can ask me to:
                               <span className="text-xs font-semibold text-zinc-100 flex items-center gap-1.5 font-mono">
                                 <AlertTriangle className="w-4 h-4 text-amber-500" /> {vuln.issue}
                               </span>
-                              <span className={`text-[10px] uppercase tracking-wider font-mono border px-2 py-0.5 rounded-full ${getSeverityBadge(vuln.severity)}`}>
-                                {vuln.severity} SEVERITY
+                              <span className={`text-[10px] font-semibold border px-2.5 py-0.5 rounded-full ${getSeverityBadge(vuln.severity)}`}>
+                                {vuln.severity} severity
                               </span>
                             </div>
                             <div className="text-xs text-zinc-400 leading-relaxed">
-                              <span className="text-[10px] text-zinc-500 font-mono block mb-1">LEGACY THREAT CONCERN</span>
+                              <span className="text-[10px] text-zinc-500 block mb-1">Legacy threat concern</span>
                               {vuln.description}
                             </div>
                             <div className="text-xs text-zinc-300 bg-zinc-900/60 p-3 rounded-xl border border-zinc-800 leading-relaxed">
-                              <span className="text-[10px] text-emerald-400 font-mono block mb-1">PATCHED TARGET REMEDIAL PASS</span>
+                              <span className="text-[10px] text-emerald-400 block mb-1">Patched target remedial pass</span>
                               {vuln.resolution}
                             </div>
                           </div>
@@ -1062,11 +1062,11 @@ How can I help you refine this code further? You can ask me to:
                       >
                         {copiedTests ? (
                           <>
-                            <Check className="w-3 h-3 text-emerald-400" /> COPIED
+                            <Check className="w-3 h-3 text-emerald-400" /> Copied
                           </>
                         ) : (
                           <>
-                            <Copy className="w-3 h-3" /> COPY TESTS
+                            <Copy className="w-3 h-3" /> Copy tests
                           </>
                         )}
                       </button>
@@ -1109,7 +1109,7 @@ How can I help you refine this code further? You can ask me to:
                       ))}
                       {isRefining && (
                         <div className="self-start flex flex-col gap-1 items-start">
-                          <div className="text-[9px] text-zinc-500 font-mono">AGENT PROCESSING</div>
+                          <div className="text-[9px] text-zinc-500 font-mono">Agent processing</div>
                           <div className="p-3.5 rounded-2xl bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-tl-none text-xs flex items-center gap-2">
                             <RefreshCw className="w-3.5 h-3.5 animate-spin text-indigo-400" />
                             Refining program code based on criteria...

@@ -1,20 +1,20 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Fraunces", Georgia, serif;
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Cinzel", Georgia, serif;
 
   --color-zinc-50: #FDFDFB;
-  --color-zinc-100: #1C1917;
-  --color-zinc-200: #292524;
-  --color-zinc-300: #44403C;
-  --color-zinc-400: #79716B;
+  --color-zinc-100: #1A1A1A;
+  --color-zinc-200: #57534E;
+  --color-zinc-300: #57534E;
+  --color-zinc-400: #8A8578;
   --color-zinc-500: #A8A29E;
-  --color-zinc-600: #B4AEA8;
-  --color-zinc-700: rgba(28, 25, 23, 0.22);
-  --color-zinc-800: rgba(28, 25, 23, 0.14);
-  --color-zinc-900: #FCFBF9;
-  --color-zinc-950: #F7F5F0;
+  --color-zinc-600: #8A8578;
+  --color-zinc-700: #D8D2C6;
+  --color-zinc-800: #E5E0D6;
+  --color-zinc-900: #F2F0EC;
+  --color-zinc-950: #F9F8F6;
 
   --color-indigo-950: #0E2756;
   --color-indigo-900: #112C63;
@@ -57,19 +57,13 @@
 }
 
 body {
-  background-color: #F7F5F0;
+  background-color: #F9F8F6;
+  font-family: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
 }
 
 h1, h2, h3, h4 {
-  font-family: "Fraunces", Georgia, serif;
+  font-family: "Cinzel", Georgia, serif;
   letter-spacing: -0.01em;
-}
-
-.uppercase {
-  text-transform: none !important;
-}
-.tracking-wider, .tracking-widest, .tracking-widest {
-  letter-spacing: 0 !important;
 }
 
 [class*="bg-gradient"] {
@@ -84,7 +78,7 @@ h1, h2, h3, h4 {
   background-clip: initial !important;
 }
 .text-transparent {
-  color: #1C1917 !important;
+  color: #1A1A1A !important;
 }
 
 .backdrop-blur, .backdrop-blur-md, .backdrop-blur-sm {
@@ -92,14 +86,17 @@ h1, h2, h3, h4 {
   -webkit-backdrop-filter: none !important;
 }
 
-.animate-ping {
+.animate-ping, .animate-pulse, .animate-bounce {
   animation: none !important;
+}
+
+.uppercase {
+  text-transform: none !important;
+}
+.tracking-wider, .tracking-widest {
+  letter-spacing: 0 !important;
 }
 
 [class*="shadow-"] {
   box-shadow: none !important;
-}
-
-.rounded-full {
-  border-radius: 0.375rem !important;
 }
