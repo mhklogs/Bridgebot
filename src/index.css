@@ -1,1 +1,105 @@
 @import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Fraunces", Georgia, serif;
+
+  --color-zinc-50: #FDFDFB;
+  --color-zinc-100: #1C1917;
+  --color-zinc-200: #292524;
+  --color-zinc-300: #44403C;
+  --color-zinc-400: #79716B;
+  --color-zinc-500: #A8A29E;
+  --color-zinc-600: #B4AEA8;
+  --color-zinc-700: rgba(28, 25, 23, 0.22);
+  --color-zinc-800: rgba(28, 25, 23, 0.14);
+  --color-zinc-900: #FCFBF9;
+  --color-zinc-950: #F7F5F0;
+
+  --color-indigo-950: #0E2756;
+  --color-indigo-900: #112C63;
+  --color-indigo-800: #16325F;
+  --color-indigo-700: #142E63;
+  --color-indigo-600: #14337A;
+  --color-indigo-500: #2A4A8F;
+  --color-indigo-400: #4A649F;
+  --color-indigo-300: #7386B8;
+  --color-indigo-200: #AAB6D4;
+  --color-indigo-100: #D3DAE9;
+
+  --color-cyan-400: #4A649F;
+  --color-cyan-500: #2A4A8F;
+  --color-cyan-600: #14337A;
+
+  --color-emerald-300: #7FA58C;
+  --color-emerald-400: #5B8C72;
+  --color-emerald-500: #4C7A64;
+  --color-emerald-600: #3E6654;
+  --color-emerald-800: rgba(75, 120, 100, 0.45);
+  --color-emerald-950: rgba(75, 120, 100, 0.12);
+
+  --color-amber-400: #C08A4A;
+  --color-amber-500: #A97A3F;
+  --color-amber-600: #8F6632;
+  --color-amber-800: rgba(140, 100, 50, 0.4);
+  --color-amber-950: rgba(140, 100, 50, 0.12);
+
+  --color-red-400: #C4685F;
+  --color-red-500: #B4554D;
+  --color-red-600: #9C463F;
+  --color-red-800: rgba(180, 85, 77, 0.4);
+  --color-red-950: rgba(180, 85, 77, 0.12);
+
+  --color-blue-400: #6B829F;
+  --color-blue-500: #58708F;
+  --color-blue-800: rgba(88, 112, 143, 0.4);
+  --color-blue-950: rgba(88, 112, 143, 0.12);
+}
+
+body {
+  background-color: #F7F5F0;
+}
+
+h1, h2, h3, h4 {
+  font-family: "Fraunces", Georgia, serif;
+  letter-spacing: -0.01em;
+}
+
+.uppercase {
+  text-transform: none !important;
+}
+.tracking-wider, .tracking-widest, .tracking-widest {
+  letter-spacing: 0 !important;
+}
+
+[class*="bg-gradient"] {
+  background-image: none !important;
+  background-color: #14337A !important;
+}
+[class*="bg-gradient"].bg-clip-text {
+  background: none !important;
+}
+.bg-clip-text {
+  -webkit-background-clip: initial !important;
+  background-clip: initial !important;
+}
+.text-transparent {
+  color: #1C1917 !important;
+}
+
+.backdrop-blur, .backdrop-blur-md, .backdrop-blur-sm {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.animate-ping {
+  animation: none !important;
+}
+
+[class*="shadow-"] {
+  box-shadow: none !important;
+}
+
+.rounded-full {
+  border-radius: 0.375rem !important;
+}
